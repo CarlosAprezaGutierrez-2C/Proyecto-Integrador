@@ -11,6 +11,11 @@ module com.example.integradora {
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
     requires com.example.integradora;
+<<<<<<< HEAD
+=======
+    requires javafx.base;
+    requires javafx.graphics;
+>>>>>>> feature/carlos
 
     opens com.example.integradora to javafx.fxml;
     exports com.example.integradora;

@@ -17,6 +17,7 @@ import java.io.IOException;
 
 
 public class AppController {
+
     @FXML private TextField txt_buscar;
     @FXML private Label lbl_error;
 
@@ -107,7 +108,7 @@ public class AppController {
         if (seleccionado != null) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Eliminar Producto");
-         //   alert.setHeaderText("¿Estás seguro de eliminar: " + seleccionado.getNombre() + "?");
+            alert.setHeaderText("¿Estás seguro de eliminar: " + seleccionado.getNombre() + "?");
 
             if (alert.showAndWait().orElse(ButtonType.CANCEL) == ButtonType.OK) {
                 listaProductos.remove(seleccionado);
@@ -123,3 +124,5 @@ public class AppController {
         }
     }
 }
+
+    
