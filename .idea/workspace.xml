@@ -42,9 +42,9 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "feature/Ixaya",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/Integradora/utez-2c-inventario-javafx-equipo10",
+    "last_opened_file_path": "D:/utez-2c-inventario-javafx-equipo10",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -57,6 +57,17 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RunManager">
+    <configuration default="true" type="JetRunConfigurationType">
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <option name="filePath" />
+      <method v="2" />
+    </configuration>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -75,6 +86,7 @@
       <workItem from="1772897564075" duration="7883000" />
       <workItem from="1772906741012" duration="1260000" />
       <workItem from="1774199185741" duration="1666000" />
+      <workItem from="1774206682759" duration="1284000" />
     </task>
     <servers />
   </component>
