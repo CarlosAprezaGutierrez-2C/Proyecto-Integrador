@@ -122,16 +122,4 @@ public class AppController {
             lbl_error.setText("Selecciona un producto de la tabla para eliminar");
         }
     }
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
 }
