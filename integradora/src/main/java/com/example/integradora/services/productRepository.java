@@ -1,4 +1,4 @@
 package com.example.integradora.services;
 
-public class ProductService {
+public class productRepository {
 }
