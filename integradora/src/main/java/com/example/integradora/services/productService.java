@@ -7,7 +7,7 @@ import java.nio.file.StandardOpenOption;
 import java.util.List;
 
 
-public class productRepository {
+public class productService {
 
 
 

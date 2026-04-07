@@ -1,101 +1,126 @@
 package com.example.integradora.controllers;
-
 import com.example.integradora.Models.Producto;
-import com.example.integradora.services.ProductService;
+import com.example.integradora.services.productService;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import java.io.IOException;
 
-public class FormController {
 
-    @FXML private TextField txt_id;
-    @FXML private TextField txt_nombre;
-    @FXML private TextField txt_precio;
-    @FXML private TextField txt_stock;
-    @FXML private TextField txt_categoria;
+
+public class AppController {
+
+    @FXML private TextField txt_buscar;
     @FXML private Label lbl_error;
 
-    private ProductService service;
-    private ObservableList<Producto> listaProductos;
-    private Producto productoEdicion;
+    @FXML private TableView<Producto> tbl_productos;
+    @FXML private TableColumn<Producto, String> col_id;
+    @FXML private TableColumn<Producto, String> col_nombre;
+    @FXML private TableColumn<Producto, Double> col_precio;
+    @FXML private TableColumn<Producto, Integer> col_stock;
+    @FXML private TableColumn<Producto, String> col_categoria;
 
-    public void initData(Producto producto, ObservableList<Producto> listaProductos, ProductService service) {
-        this.listaProductos = listaProductos;
-        this.service = service;
-        this.productoEdicion = producto;
+    private ObservableList<Producto> listaProductos = FXCollections.observableArrayList();
+    private productService service = new productService();
 
-        if (producto != null) {
-            txt_id.setText(producto.getId());
-            txt_id.setDisable(true);
-            txt_nombre.setText(producto.getNombre());
-            txt_precio.setText(String.valueOf(producto.getPrecio()));
-            txt_stock.setText(String.valueOf(producto.getStock()));
-            txt_categoria.setText(producto.getCategoria());
+
+    @FXML
+    public void initialize() {
+        col_id.setCellValueFactory(new PropertyValueFactory<>("id"));
+        col_nombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+        col_precio.setCellValueFactory(new PropertyValueFactory<>("precio"));
+        col_stock.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        col_categoria.setCellValueFactory(new PropertyValueFactory<>("categoria"));
+
+        FilteredList<Producto> listaFiltrada = new FilteredList<>(listaProductos, p -> true);
+
+        txt_buscar.textProperty().addListener((observable, oldValue, newValue) -> {
+            listaFiltrada.setPredicate(producto -> {
+                if (newValue == null || newValue.isEmpty()) return true;
+                String filter = newValue.toLowerCase();
+                return producto.getNombre().toLowerCase().contains(filter) ||
+                        producto.getId().toLowerCase().contains(filter);
+            });
+        });
+
+        SortedList<Producto> listaOrdenada = new SortedList<>(listaFiltrada);
+        listaOrdenada.comparatorProperty().bind(tbl_productos.comparatorProperty());
+
+        tbl_productos.setItems(listaOrdenada);
+        onReload();
+    }
+    public void onOpenAddForm() {
+        abrirFormulario(null);
+    }
+
+    @FXML
+    public void onEditProduct() {
+        Producto seleccionado = tbl_productos.getSelectionModel().getSelectedItem();
+        if (seleccionado != null) {
+            abrirFormulario(seleccionado);
+        } else {
+            lbl_error.setText("Selecciona un producto de la tabla para editar");
+        }
+    }
+
+    private void abrirFormulario(Producto producto) {
+        lbl_error.setText("");
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/demolistviewfile/views/form-view.fxml"));
+            Parent root = loader.load();
+
+            FormController controller = loader.getController();
+            controller.initData(producto, listaProductos, service);
+
+            Stage stage = new Stage();
+            stage.setTitle(producto == null ? "Agregar Nuevo Producto" : "Editar Producto");
+            stage.setScene(new Scene(root));
+            stage.showAndWait();
+
+            tbl_productos.refresh();
+
+        } catch (IOException e) {
+            lbl_error.setText("No se pudo abrir el formulario: " + e.getMessage());
         }
     }
 
     @FXML
-    public void onSave() {
+    public void onReload() {
         try {
-            validarCampos();
+            lbl_error.setText("");
+            listaProductos.setAll(service.loadProducts());
+        } catch (IOException e) {
+            lbl_error.setText("Error al cargar datos: " + e.getMessage());
+        }
+    }
 
-            if (productoEdicion == null) {
-                for (Producto p : listaProductos) {
-                    if (p.getId().equalsIgnoreCase(txt_id.getText())) {
-                        throw new IllegalArgumentException("El ID ya existe Usa uno diferente");
-                    }
+    @FXML
+    public void onDeleteProduct() {
+        Producto seleccionado = tbl_productos.getSelectionModel().getSelectedItem();
+        if (seleccionado != null) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Eliminar Producto");
+            alert.setHeaderText("¿Estás seguro de eliminar: " + seleccionado.getNombre() + "?");
+
+            if (alert.showAndWait().orElse(ButtonType.CANCEL) == ButtonType.OK) {
+                listaProductos.remove(seleccionado);
+                 try {
+                   service.saveAllProducts(listaProductos);
+                    lbl_error.setText("Producto eliminado correctamente");
+                } catch (IOException e) {
+                    lbl_error.setText("Error al eliminar del archivo: " + e.getMessage());
                 }
-
-                Producto nuevo = new Producto(
-                        txt_id.getText(), txt_nombre.getText(),
-                        Double.parseDouble(txt_precio.getText()),
-                        Integer.parseInt(txt_stock.getText()),
-                        txt_categoria.getText()
-                );
-                listaProductos.add(nuevo);
-            } else {
-                productoEdicion.setNombre(txt_nombre.getText());
-                productoEdicion.setPrecio(Double.parseDouble(txt_precio.getText()));
-                productoEdicion.setStock(Integer.parseInt(txt_stock.getText()));
-                productoEdicion.setCategoria(txt_categoria.getText());
             }
-
-            service.saveAllProducts(listaProductos);
-            cerrarVentana();
-
-        } catch (IllegalArgumentException e) {
-            lbl_error.setText(e.getMessage());
-        } catch (Exception e) {
-            lbl_error.setText("Error al guardar: " + e.getMessage());
+        } else {
+            lbl_error.setText("Selecciona un producto de la tabla para eliminar");
         }
-    }
-
-    private void validarCampos() {
-        if (txt_id.getText().isBlank() || txt_nombre.getText().isBlank()) {
-            throw new IllegalArgumentException("El ID y Nombre son obligatorios");
-        }
-        if (txt_nombre.getText().trim().length() < 3) {
-            throw new IllegalArgumentException("El nombre debe tener al menos 3 caracteres");
-        }
-        try {
-            double precio = Double.parseDouble(txt_precio.getText());
-            int stock = Integer.parseInt(txt_stock.getText());
-            if (precio <= 0) throw new IllegalArgumentException("El precio debe ser mayor a 0");
-            if (stock < 0) throw new IllegalArgumentException("El stock no puede ser negativo");
-        } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("Precio y Stock deben ser numeros validos");
-        }
-    }
-
-    @FXML
-    public void onCancel() {
-        cerrarVentana();
-    }
-
-    private void cerrarVentana() {
-        Stage stage = (Stage) txt_id.getScene().getWindow();
-        stage.close();
     }
 }

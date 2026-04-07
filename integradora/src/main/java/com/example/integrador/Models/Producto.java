@@ -1,4 +1,4 @@
-package com.example.integradora.Models;
+package com.example.integrador.Models;
 
 public class Producto {
 
