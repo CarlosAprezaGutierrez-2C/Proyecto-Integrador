@@ -4,7 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
+<<<<<<< HEAD
     <list default="true" id="7a3982da-bdb4-4e0f-a00b-fcd86e5f51ac" name="Changes" comment="" />
+=======
+    <list default="true" id="7a3982da-bdb4-4e0f-a00b-fcd86e5f51ac" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/integradora/src/main/java/com/example/integradora/controllers/AppController.java" beforeDir="false" afterPath="$PROJECT_DIR$/integradora/src/main/java/com/example/integradora/controllers/AppController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/integradora/src/main/java/com/example/integradora/services/productRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/integradora/src/main/java/com/example/integradora/services/productRepository.java" afterDir="false" />
+    </list>
+>>>>>>> feature/Ixaya
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -86,7 +93,11 @@
       <workItem from="1772897564075" duration="7883000" />
       <workItem from="1772906741012" duration="1260000" />
       <workItem from="1774199185741" duration="1666000" />
+<<<<<<< HEAD
       <workItem from="1774206682759" duration="2533000" />
+=======
+      <workItem from="1774206682759" duration="1604000" />
+>>>>>>> feature/Ixaya
     </task>
     <servers />
   </component>
