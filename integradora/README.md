@@ -17,8 +17,3 @@ Toda la información se maneja a través de archivos de texto estructurados en f
 - **Formato:** Cada fila del archivo representa un producto, separado por comas: `Código,Nombre,Precio,Stock,Categoría`.
 (Por ejemplo: `PAN002,Pan Blanco Grande,18.00,50,Panadería`).
 
-## Requisitos y Validaciones aplicadas
-- El nombre del producto requiere de al menos 3 caracteres mínimos.
-- El ID del producto no se puede repetir con uno existente al dar de alta.
-- El precio y el stock no pueden ser valores negativos, ni texto.
-- Implementación del modelo Vista-Controlador (MVC) y separación de re sponsabilidades a través de Servicios y Repositorios correspondientes.
