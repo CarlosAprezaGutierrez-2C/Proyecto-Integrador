@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox prefHeight="560.0" prefWidth="880.0" spacing="10.0"
+      xmlns="http://javafx.com/javafx/17.0.12"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.example.integradora.controllers.AppController">
+
+    <padding>
+        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+    </padding>
+
+    <children>
+
+        <Label text="Inventario de Productos">
+            <font>
+                <Font name="System Bold" size="20.0" />
+            </font>
+        </Label>
+
+        <!-- Busqueda y ordenamiento -->
+        <HBox alignment="CENTER_LEFT" spacing="8.0">
+            <children>
+                <Label text="Buscar:" />
+                <TextField fx:id="txt_buscar" prefWidth="250.0" promptText="Nombre o codigo..." />
+                <Label text="  Ordenar por:" />
+                <ComboBox fx:id="cmb_ordenar" prefWidth="190.0" />
+            </children>
+        </HBox>
+
+        <!-- Mensajes -->
+        <Label fx:id="lbl_status" textFill="GREEN" />
+        <Label fx:id="lbl_error"  textFill="RED" />
+
+        <!-- Botones -->
+        <HBox alignment="CENTER_LEFT" spacing="8.0">
+            <children>
+                <Button fx:id="btn_nuevo"    onAction="#onOpenAddForm"  text="Nuevo Producto" />
+                <Button fx:id="btn_editar"   onAction="#onEditProduct"  text="Editar" />
+                <Button fx:id="btn_eliminar" onAction="#onDeleteProduct" text="Eliminar" />
+                <Button fx:id="btn_recargar" onAction="#onReload"       text="Recargar" />
+            </children>
+        </HBox>
+
+        <!-- Tabla -->
+        <TableView fx:id="tbl_productos" VBox.vgrow="ALWAYS" prefHeight="400.0">
+            <columns>
+                <TableColumn fx:id="col_id"        prefWidth="110.0" text="Codigo" />
+                <TableColumn fx:id="col_nombre"    prefWidth="220.0" text="Nombre" />
+                <TableColumn fx:id="col_precio"    prefWidth="110.0" text="Precio" />
+                <TableColumn fx:id="col_stock"     prefWidth="100.0" text="Stock" />
+                <TableColumn fx:id="col_categoria" prefWidth="185.0" text="Categoria" />
+            </columns>
+        </TableView>
+
+    </children>
+</VBox>
