@@ -1,6 +1,6 @@
 package com.example.integradora.controllers;
 import com.example.integradora.Models.Producto;
-import com.example.integradora.services.productService;
+import com.example.integradora.services.ProductService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -13,8 +13,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import java.io.IOException;
-
-
 
 public class AppController {
 
@@ -29,7 +27,7 @@ public class AppController {
     @FXML private TableColumn<Producto, String> col_categoria;
 
     private ObservableList<Producto> listaProductos = FXCollections.observableArrayList();
-    private productService service = new productService();
+    private ProductService service = new ProductService();
 
 
     @FXML
@@ -74,7 +72,7 @@ public class AppController {
     private void abrirFormulario(Producto producto) {
         lbl_error.setText("");
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/demolistviewfile/views/form-view.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/integradora/views/form-view.fxml"));
             Parent root = loader.load();
 
             FormController controller = loader.getController();

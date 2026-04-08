@@ -32,11 +32,11 @@
 
         <HBox alignment="CENTER_LEFT" spacing="15.0">
             <children>
-                <Button fx:id="btn_nuevo" onAction="#onOpenAddForm" style="-fx-background-color: #3498db;" text="Nuevo Producto" textFill="WHITE" />
+                <Button fx:id="btn_nuevo" onAction="#onOpenAddForm" text="Nuevo Producto" />
                 <Button fx:id="btn_recargar" onAction="#onReload" text="Recargar Info" />
                 <Pane HBox.hgrow="ALWAYS" />
                 <Button fx:id="btn_editar" onAction="#onEditProduct" text="Editar Seleccionado" />
-                <Button fx:id="btn_eliminar" onAction="#onDeleteProduct" style="-fx-background-color: #e74c3c;" text="Eliminar" textFill="WHITE" />
+                <Button fx:id="btn_eliminar" onAction="#onDeleteProduct" text="Eliminar" />
             </children>
         </HBox>
 

@@ -1,100 +1,24 @@
-# Sistema de Inventario de Productos
+# Sistema de Inventario Básico (JavaFX)
 
-Aplicacion de escritorio en JavaFX para administrar el inventario de una tienda local.
-Guarda los datos en un archivo CSV sin necesidad de internet ni base de datos.
+## Descripción del Sistema
+Este proyecto es una aplicación de escritorio sencilla para gestionar el inventario de una tiendita local. Está desarrollado en JavaFX aplicando los principios de la Programación Orientada a Objetos (POO). 
+Permite llevar un control de los productos (Alta, Baja, Modificación y Consulta - CRUD) sin necesidad de una base de datos compleja ni conexión a internet, ya que guarda toda la información en un archivo de texto local. Cuenta también con funciones de búsqueda en tiempo real y ordenamiento de columnas (A-Z).
 
----
+## Cómo Ejecutar
+1. Abre el proyecto en un entorno de desarrollo compatible con Maven (como IntelliJ IDEA, Eclipse o NetBeans).
+2. Asegúrate de tener configurado el JDK 21+ o la versión correspondiente a JavaFX instalada en tu sistema.
+3. Ejecuta la clase principal llamada `Launcher.java` (o `HelloApplication.java`), ubicada en el paquete `com.example.integradora`.
+4. (Opcional) Si usas línea de comandos, puedes compilar y ejecutar con Maven: `mvn clean javafx:run`.
 
-## Descripcion
+## Persistencia de Datos
+Toda la información se maneja a través de archivos de texto estructurados en formato CSV.
+- **Ubicación:** Los datos se guardan o se crean automáticamente dentro de una carpeta llamada `data` en la raíz del proyecto.
+- **Archivo:** `productos.csv`
+- **Formato:** Cada fila del archivo representa un producto, separado por comas: `Código,Nombre,Precio,Stock,Categoría`.
+(Por ejemplo: `PAN002,Pan Blanco Grande,18.00,50,Panadería`).
 
-El sistema permite:
-- Agregar productos nuevos
-- Ver todos los productos en una tabla
-- Editar un producto existente
-- Eliminar productos (con confirmacion)
-- Buscar productos por nombre o codigo en tiempo real
-- Ordenar la lista por nombre, precio o stock
-
-Cada producto tiene: codigo, nombre, precio, stock y categoria.
-
----
-
-## Como ejecutar
-
-Necesitas tener instalado **Java 21** y **Maven**.
-
-1. Abre una terminal en la carpeta del proyecto
-2. Ejecuta:
-
-```
-mvn javafx:run
-```
-
----
-
-## Archivo de datos
-
-Los productos se guardan en el archivo:
-
-```
-data/productos.csv
-```
-
-El formato de cada linea es:
-
-```
-codigo,nombre,precio,stock,categoria
-```
-
-Ejemplo:
-```
-LECH001,Leche Entera 1L,22.50,80,Lácteos
-PAN002,Pan Blanco Grande,18.00,50,Panadería
-```
-
-Si el archivo no existe, el programa lo crea automaticamente al iniciar.
-
----
-
-## Estructura del proyecto
-
-```
-src/
-  main/
-    java/
-      com/example/demolistviewfile/
-        HelloApplication.java      <- clase principal
-        Models/
-          Producto.java            <- clase modelo
-        repositories/
-          ProductRepository.java   <- lee y escribe el archivo
-        services/
-          ProductService.java      <- logica del negocio
-        controllers/
-          AppController.java       <- pantalla principal
-          FormController.java      <- formulario de alta/edicion
-    resources/
-      views/
-        app-view.fxml              <- vista principal
-        form-view.fxml             <- vista del formulario
-data/
-  productos.csv                    <- archivo de datos
-```
-
----
-
-## Validaciones
-
-- Ningun campo puede estar vacio
-- El nombre necesita al menos 3 caracteres
-- El precio debe ser mayor a 0
-- El stock no puede ser negativo
-- El codigo no se puede repetir
-
----
-
-## Tecnologias
-
-- Java 21
-- JavaFX 21.0.6
-- Maven
+## Requisitos y Validaciones aplicadas
+- El nombre del producto requiere de al menos 3 caracteres mínimos.
+- El ID del producto no se puede repetir con uno existente al dar de alta.
+- El precio y el stock no pueden ser valores negativos, ni texto.
+- Implementación del modelo Vista-Controlador (MVC) y separación de responsabilidades a través de Servicios y Repositorios correspondientes.

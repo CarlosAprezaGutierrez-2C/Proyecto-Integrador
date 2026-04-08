@@ -1,4 +1,4 @@
-package com.example.demolistviewfile;
+package com.example.integradora;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -11,8 +11,9 @@ public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(
-                HelloApplication.class.getResource("/com/example/integradora/hello-view.fxml"));        Scene scene = new Scene(fxmlLoader.load(), 620, 440);
-        stage.setTitle("Hello!");
+                HelloApplication.class.getResource("/com/example/integradora/views/app-view.fxml"));        
+        Scene scene = new Scene(fxmlLoader.load(), 800, 600);
+        stage.setTitle("Inventario de Productos");
         stage.setScene(scene);
         stage.show();
     }
